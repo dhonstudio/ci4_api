@@ -6,6 +6,10 @@ use CodeIgniter\Database\Migration;
 
 class ApiUsers extends Migration
 {
+    /* 
+    | To create other migration, use php spark migrate:create migration_name
+    | And after setting up, do php spark migrate
+    */
     public function up()
     {
         $this->forge->addField([

@@ -26,14 +26,16 @@ class BasicauthFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        $auth   = new ApiUsersModel();
-        $user   = $auth
-            ->where('username', $_SERVER['PHP_AUTH_USER'])
-            ->findAll()[0];
+        if (!empty($_SERVER['PHP_AUTH_USER'])) {
+            $auth   = new ApiUsersModel();
+            $user   = $auth
+                ->where('username', $_SERVER['PHP_AUTH_USER'])
+                ->findAll()[0];
 
-        $authorized = $user['password'] == password_verify($_SERVER['PHP_AUTH_PW'], $user['password']) ? true : false;
+            $authorized = $user['password'] == password_verify($_SERVER['PHP_AUTH_PW'], $user['password']) ? true : false;
+        }
 
-        if ($authorized === false) {
+        if (empty($_SERVER['PHP_AUTH_USER']) || $authorized === false) {
             header('Content-Type: application/json');
             header('Access-Control-Allow-Origin: *');
             //~ Active this if want to create auth bar
