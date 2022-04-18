@@ -30,9 +30,9 @@ class BasicauthFilter implements FilterInterface
             $auth   = new ApiUsersModel();
             $user   = $auth
                 ->where('username', $_SERVER['PHP_AUTH_USER'])
-                ->findAll()[0];
+                ->findAll();
 
-            $authorized = $user['password'] == password_verify($_SERVER['PHP_AUTH_PW'], $user['password']) ? true : false;
+            $authorized = $user && $user[0]['password'] == password_verify($_SERVER['PHP_AUTH_PW'], $user[0]['password']) ? true : false;
         }
 
         if (empty($_SERVER['PHP_AUTH_USER']) || $authorized === false) {
