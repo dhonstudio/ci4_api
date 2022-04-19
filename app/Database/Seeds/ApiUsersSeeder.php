@@ -2,7 +2,7 @@
 
 namespace App\Database\Seeds;
 
-use App\Models\ApiUsersModel;
+use App\Models\ApiusersModel;
 use CodeIgniter\Database\Seeder;
 
 class ApiUsersSeeder extends Seeder
@@ -21,7 +21,7 @@ class ApiUsersSeeder extends Seeder
         // $this->db->table('api_users')->insert($data);
 
         //~ Using Model
-        $ApiUsersModel = new ApiUsersModel();
+        $ApiUsersModel = new ApiusersModel();
 
         $ApiUsersModel->insert($data);
     }

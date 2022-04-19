@@ -2,7 +2,7 @@
 
 namespace App\Filters;
 
-use App\Models\ApiUsersModel;
+use App\Models\ApiusersModel;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -26,8 +26,12 @@ class BasicauthFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
+        //~ Define custom api_users db
+        $apiUsersDb  = 'project';
+
         if (!empty($_SERVER['PHP_AUTH_USER'])) {
-            $auth   = new ApiUsersModel();
+            $db     = db_connect($apiUsersDb . '_' . ENVIRONMENT);
+            $auth   = model('ApiusersModel', true, $db);
             $user   = $auth
                 ->where('username', $_SERVER['PHP_AUTH_USER'])
                 ->findAll();

@@ -31,8 +31,12 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
-$routes->get('/(:any)', 'Home::index', ['filter' => 'basicAuthFilter']);
+
+//~ Switch this to false if not use Basic Auth
+$basicAuth = true;
+
+$options = $basicAuth ? ['filter' => 'basicAuthFilter'] : [];
+$routes->get('/(:any)', 'Home::index', $options);
 
 /*
  * --------------------------------------------------------------------
